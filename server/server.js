@@ -9,8 +9,8 @@ import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
-import liveApp from '../common/reducers'
-import AppContainer from '../common/containers/App'
+import liveApp from '../src/reducers'
+import AppContainer from '../src/containers/App'
 
 const app = express()
 const compiler = webpack(config)

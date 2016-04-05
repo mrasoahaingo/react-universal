@@ -15,6 +15,6 @@ export function count(state = 0, { type }) {
   }
 }
 
-export default combineReducers ({
+export default {
   count
-})
+}

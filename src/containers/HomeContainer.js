@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { increment, decrement } from '../actions'
 
-import App from '../components/App'
+import Home from '../components/Home'
 
 const mapStateToProps = (state) => {
   return {
@@ -20,9 +20,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-let AppContainer = connect(
+let HomeContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(App)
+)(Home)
 
-export default AppContainer
+export default HomeContainer

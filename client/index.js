@@ -2,18 +2,27 @@ import React from 'react'
 import { render } from 'react-dom'
 
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import liveApp from '../common/reducers'
+import { Router, browserHistory, match } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 
-import AppContainer from '../common/containers/App'
+import createStore from '../common/createStore'
+import routes from '../src/routes'
 
-// Grab the state from a global injected into server-generated HTML
 const initialState = window.__INITIAL_STATE__ || { count: 0 }
 
-const store = createStore(liveApp, initialState)
+const store = createStore(browserHistory, initialState)
+const history = syncHistoryWithStore(browserHistory, store)
+const { pathname, search, hash } = window.location
+const location = `${pathname}${search}${hash}`
 
-render(
-    <Provider store={store}>
-      <AppContainer />
-    </Provider>
-    , document.getElementById('app'))
+match({ routes, history, location }, () => {
+
+  render(
+      <Provider store={store}>
+        <Router history={history}>
+          {routes}
+        </Router>
+      </Provider>
+      , document.getElementById('app'))
+
+})
