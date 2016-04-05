@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
-import { increment, decrement } from '../actions'
+import { increment, decrement } from 'reducers/count'
 
-import Home from '../components/Home'
+import Home from 'components/Home'
 
 const mapStateToProps = (state) => {
   return {

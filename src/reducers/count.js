@@ -1,5 +1,4 @@
 export const INCREMENT = 'INCREMENT'
-
 export const DECREMENT = 'DECREMENT'
 
 export function increment() {
@@ -14,13 +13,15 @@ export function decrement() {
   }
 }
 
-export function getLatest() {
-  return {
-    types: ['LOAD', 'LATEST'],
-    payload: {
-      request:{
-        url: '/movie/popular?api_key=61a7fe0a2defc2d41f21253258bf6a4e'
-      }
-    }
+export default function count(state = 0, { type }) {
+  switch (type) {
+    case INCREMENT:
+      return state + 1
+
+    case DECREMENT:
+      return state - 1
+
+    default:
+      return state
   }
 }

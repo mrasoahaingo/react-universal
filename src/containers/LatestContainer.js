@@ -1,7 +1,12 @@
 import { connect } from 'react-redux'
-import { getLatest } from '../actions'
+import { pre } from 'reasync'
+import { getLatest } from 'reducers/movies'
 
-import List from '../components/List'
+import List from 'components/List'
+
+const preResolve = ({ dispatch }) => {
+  return dispatch(getLatest())
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -9,17 +14,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getLatest: () => {
-      dispatch(getLatest())
-    }
-  }
-}
-
 let ListContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(List)
+    mapStateToProps
+)(pre(preResolve)(List))
 
 export default ListContainer

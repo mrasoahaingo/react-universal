@@ -7,12 +7,13 @@ import config from '../webpack.config'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
-import { match, Router, createMemoryHistory } from 'react-router'
+import { match, RouterContext, createMemoryHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
-import createClient from '../common/createClient'
-import createStore, { initialState } from '../common/createStore'
-import routes from '../src/routes'
+import createClient from 'common/createClient'
+import createStore, { initialState } from 'common/createStore'
+import { createServerResolver } from 'common/reasync'
+import createRoutes from 'routes'
 
 const app = express()
 const compiler = webpack(config)
@@ -32,33 +33,53 @@ app.use((req, res) => {
   const client = createClient(req.cookie)
   const store = createStore(memoryHistory, initialState, client)
   const history = syncHistoryWithStore(memoryHistory, store)
-  
-  const html = renderToString(
-      <Provider store={store} key="provider">
-        <Router history={history}>
-          {routes}
-        </Router>
-      </Provider>
-  )
+  const location = history.createLocation(req.url)
+  const routes = createRoutes(history)
 
-  const state = store.getState()
+  match({ routes, location }, (error, redirectLocation, renderProps) => {
+    if (redirectLocation) {
+      res.redirect(301, redirectLocation.pathname + redirectLocation.search)
+    } else if (error) {
+      res.status(500).send(error.message)
+    } else if (renderProps == null) {
+      res.status(404).send('Not found')
+    } else {
 
-  res.send(`
-    <!doctype html>
-    <html lang="en" data-framework="preact">
-    <head>
-        <meta charset="utf-8"/>
-        <link rel="stylesheet" href="css/main.css"/>
-    </head>
-    <body class="demo">
-        <div id="app">${html}</div>
-        <script>
-            window.__INITIAL_STATE__ = ${JSON.stringify(state)}
-        </script>
-        <script src="/dist/bundle.js"></script>
-    </body>
-    </html>
-  `)
+      const render = (renderProps, store) => {
+        const html = renderToString(
+            <Provider store={store} key="provider">
+              <RouterContext {...renderProps} />
+            </Provider>
+        );
+
+        return res.send(`
+          <!doctype html>
+          <html lang="en" data-framework="preact">
+          <head>
+              <meta charset="utf-8"/>
+              <link rel="stylesheet" href="/public/css/main.css"/>
+          </head>
+          <body class="demo">
+              <div id="app">${html}</div>
+              <script>
+                  window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}
+              </script>
+              <script src="/dist/bundle.js"></script>
+          </body>
+          </html>
+        `)
+      }
+
+      const attrs = {
+        location: renderProps.location,
+        params: renderProps.params,
+        getState: store.getState,
+        dispatch: store.dispatch
+      };
+
+      return createServerResolver().triggerHooks(renderProps.components, attrs, render.bind(null, renderProps, store))
+    }
+  })
 })
 
 app.listen(3000, (err) => {

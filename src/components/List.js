@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 
 class Home extends Component {
 
-  componentDidMount() {
-    const { getLatest } = this.props
-    getLatest()
-  }
-  
   render() {
     const { movies } = this.props
 

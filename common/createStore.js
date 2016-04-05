@@ -2,7 +2,7 @@ import { createStore as _createStore, applyMiddleware, compose, combineReducers 
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 import axiosMiddleware from 'redux-axios-middleware'
 
-import liveApp from '../src/reducers'
+import reducers from 'reducers'
 
 export const initialState = {
   count: 0,
@@ -10,13 +10,8 @@ export const initialState = {
 }
 
 export default function (history, data = initialState, client) {
-  const reducer = combineReducers({
-    ...liveApp,
-    routing: routerReducer
-  })
-
   const store = _createStore(
-      reducer,
+      reducers,
       data,
       compose(
           applyMiddleware(
