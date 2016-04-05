@@ -1,9 +1,15 @@
 import { createStore as _createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
+import axiosMiddleware from 'redux-axios-middleware'
 
 import liveApp from '../src/reducers'
 
-export default function (history, data = undefined) {
+export const initialState = {
+  count: 0,
+  movies: []
+}
+
+export default function (history, data = initialState, client) {
   const reducer = combineReducers({
     ...liveApp,
     routing: routerReducer
@@ -14,6 +20,7 @@ export default function (history, data = undefined) {
       data,
       compose(
           applyMiddleware(
+              axiosMiddleware(client),
               routerMiddleware(history)
           )
       )

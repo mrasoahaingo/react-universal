@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux'
 import { INCREMENT, DECREMENT } from '../actions'
 
-
-export function count(state = 0, { type }) {
-  switch(type) {
+function count(state = 0, { type }) {
+  switch (type) {
     case INCREMENT:
       return state + 1
     
@@ -15,6 +14,16 @@ export function count(state = 0, { type }) {
   }
 }
 
+function movies(state = [], { type, payload }) {
+  switch (type) {
+    case 'LATEST':
+      return payload.response.data.results
+    default:
+      return state
+  }
+}
+
 export default {
-  count
+  count,
+  movies
 }

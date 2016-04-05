@@ -9,7 +9,7 @@ class App extends Component {
 
     return (
         <section>
-          <header>Header, <Link to={'/'}>Home</Link>, <Link to={'/about'}>About</Link></header>
+          <header>Header, <Link to={'/'}>Home</Link>, <Link to={'/about'}>About</Link>, <Link to={'/latest'}>Latest</Link></header>
           <section>
             {children}
           </section>

@@ -10,7 +10,8 @@ import { Provider } from 'react-redux'
 import { match, Router, createMemoryHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
-import createStore from '../common/createStore'
+import createClient from '../common/createClient'
+import createStore, { initialState } from '../common/createStore'
 import routes from '../src/routes'
 
 const app = express()
@@ -27,9 +28,10 @@ app.use('/public', express.static('public'))
 
 app.use((req, res) => {
 
-  const memoryHistory = createMemoryHistory(req.originalUrl);
-  const store = createStore(memoryHistory, undefined);
-  const history = syncHistoryWithStore(memoryHistory, store);
+  const memoryHistory = createMemoryHistory(req.originalUrl)
+  const client = createClient(req.cookie)
+  const store = createStore(memoryHistory, initialState, client)
+  const history = syncHistoryWithStore(memoryHistory, store)
   
   const html = renderToString(
       <Provider store={store} key="provider">
@@ -39,7 +41,7 @@ app.use((req, res) => {
       </Provider>
   )
 
-  const initialState = store.getState()
+  const state = store.getState()
 
   res.send(`
     <!doctype html>
@@ -51,7 +53,7 @@ app.use((req, res) => {
     <body class="demo">
         <div id="app">${html}</div>
         <script>
-            window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+            window.__INITIAL_STATE__ = ${JSON.stringify(state)}
         </script>
         <script src="/dist/bundle.js"></script>
     </body>

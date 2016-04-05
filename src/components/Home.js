@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 class Home extends Component {
   
   render() {
-
     const { count, onIncrement, onDecrement } = this.props
 
     return (
