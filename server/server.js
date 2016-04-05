@@ -7,10 +7,11 @@ import config from '../webpack.config'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { match, Router, createMemoryHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 
-import liveApp from '../src/reducers'
-import AppContainer from '../src/containers/App'
+import createStore from '../common/createStore'
+import routes from '../src/routes'
 
 const app = express()
 const compiler = webpack(config)
@@ -24,22 +25,22 @@ app.use(webpackHotMiddleware(compiler))
 
 app.use('/public', express.static('public'))
 
-// This is fired every time the server side receives a request
 app.use((req, res) => {
-  // Create a new Redux store instance
-  const store = createStore(liveApp, { count: 0 })
 
-  // Render the component to a string
+  const memoryHistory = createMemoryHistory(req.originalUrl);
+  const store = createStore(memoryHistory, undefined);
+  const history = syncHistoryWithStore(memoryHistory, store);
+  
   const html = renderToString(
-      <Provider store={store}>
-        <AppContainer />
+      <Provider store={store} key="provider">
+        <Router history={history}>
+          {routes}
+        </Router>
       </Provider>
   )
 
-  // Grab the initial state from our Redux store
   const initialState = store.getState()
 
-  // Send the rendered page back to the client
   res.send(`
     <!doctype html>
     <html lang="en" data-framework="preact">
