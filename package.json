@@ -7,13 +7,14 @@
     "clean": "rimraf dist",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
-    "start:server": "cross-env NODE_ENV=production node ./server/index.js",
-    "start": "node ./client/server.js",
+    "start:server": "cross-env NODE_ENV=production babel-node ./server/server.js",
+    "start": "babel-node ./client/server.js",
     "lint": "eslint src"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.6.5",
     "babel-core": "^6.6.5",
     "babel-eslint": "^5.0.0-beta4",
     "babel-loader": "^6.2.4",
