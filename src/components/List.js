@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { preResolve } from 'reasync'
+import { getLatest } from 'reducers/movies'
 
-class Home extends Component {
+@preResolve(
+  ({ dispatch }) => dispatch(getLatest())
+)
+@connect(
+  state => ({
+    movies: state.movies
+  })
+)
+class List extends Component {
 
   render() {
     const { movies } = this.props
@@ -15,5 +26,5 @@ class Home extends Component {
 
 }
 
-export default Home
+export default List
  

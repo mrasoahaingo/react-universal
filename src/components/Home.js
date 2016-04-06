@@ -1,5 +1,20 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { increment, decrement } from 'reducers/count'
 
+@connect(
+  state => ({
+    count: state.count
+  }),
+  dispatch => ({
+    onIncrement: () => {
+      dispatch(increment())
+    },
+    onDecrement: () => {
+      dispatch(decrement())
+    }
+  })
+)
 class Home extends Component {
   
   render() {

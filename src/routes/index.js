@@ -2,16 +2,16 @@ import React from 'react'
 import { Router, Route, IndexRoute, Link } from 'react-router'
 
 import AppLayout from 'layout/AppLayout'
-import HomeContainer from 'containers/HomeContainer'
-import AboutContainer from 'containers/AboutContainer'
-import LatestContainer from 'containers/LatestContainer'
+import Home from 'components/Home'
+import About from 'components/About'
+import List from 'components/List'
 
 const routes = history => (
     <Router history={history}>
       <Route path="/" component={AppLayout}>
-        <IndexRoute component={HomeContainer}/>
-        <Route path="/about" component={AboutContainer}/>
-        <Route path="/latest" component={LatestContainer}/>
+        <IndexRoute component={Home}/>
+        <Route path="/about" component={About}/>
+        <Route path="/latest" component={List}/>
       </Route>
     </Router>
 )
