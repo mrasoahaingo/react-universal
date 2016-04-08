@@ -2,18 +2,19 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  // or devtool: 'eval' to debug issues with compiled output:
   devtool: 'cheap-module-eval-source-map',
-  entry: [
-    // listen to code updates emitted by hot middleware:
-    'webpack-hot-middleware/client',
-    // your code:
-    './client/index'
-  ],
+  entry: {
+    bundle: [
+      'webpack-hot-middleware/client',
+      './client/swRegister.js',
+      './client/index'
+    ],
+    sw: './client/sw.js'
+  },
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/dist/'
+    path: __dirname,
+    filename: '[name].js',
+    publicPath: '/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

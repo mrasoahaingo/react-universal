@@ -22,7 +22,7 @@ class Home extends Component {
 
     return (
         <div>
-          <h1>Live ({count})</h1>
+          <h1>Lives ({count})</h1>
           <button type="button" onClick={onIncrement}>+</button>
           <button type="button" onClick={onDecrement}>-</button>
         </div>

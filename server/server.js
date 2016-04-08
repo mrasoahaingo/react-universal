@@ -57,14 +57,13 @@ app.use((req, res) => {
           <html lang="en" data-framework="preact">
           <head>
               <meta charset="utf-8"/>
-              <link rel="stylesheet" href="/public/css/main.css"/>
           </head>
           <body class="demo">
               <div id="app">${html}</div>
               <script>
                   window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}
               </script>
-              <script src="/dist/bundle.js"></script>
+              <script src="/bundle.js"></script>
           </body>
           </html>
         `)
