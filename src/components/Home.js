@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { increment, decrement } from 'reducers/count'
+import Page from './Page'
 
 @connect(
   state => ({
@@ -21,11 +22,11 @@ class Home extends Component {
     const { count, onIncrement, onDecrement } = this.props
 
     return (
-        <div>
-          <h1>Lives ({count})</h1>
-          <button type="button" onClick={onIncrement}>+</button>
-          <button type="button" onClick={onDecrement}>-</button>
-        </div>
+      <Page>
+        <h1>Lives ({count})</h1>
+        <button type="button" onClick={onIncrement}>+</button>
+        <button type="button" onClick={onDecrement}>-</button>
+      </Page>
     )
   }
   

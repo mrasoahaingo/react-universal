@@ -32,6 +32,7 @@
     "eslint-plugin-babel": "^3.0.0",
     "eslint-plugin-react": "^3.11.3",
     "express": "^4.13.3",
+    "jsdom": "^8.3.1",
     "path": "^0.12.7",
     "reasync": "1.0.0-rc.4",
     "rimraf": "^2.4.3",
@@ -49,6 +50,8 @@
     "redux": "^3.1.2",
     "redux-axios-middleware": "^0.2.0",
     "redux-saga": "^0.9.5",
-    "sw-toolbox": "^3.1.1"
+    "sw-toolbox": "^3.1.1",
+    "velocity-animate": "^1.2.3",
+    "velocity-react": "^1.1.4"
   }
 }
