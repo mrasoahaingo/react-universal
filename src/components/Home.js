@@ -5,7 +5,7 @@ import Page from './Page'
 
 @connect(
   state => ({
-    count: state.count
+    count: state.app.count
   }),
   dispatch => ({
     onIncrement: () => {

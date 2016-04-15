@@ -10,7 +10,7 @@ import Page from './Page'
 )
 @connect(
   state => ({
-    detail: state.detail
+    detail: state.app.detail
   })
 )
 class List extends Component {

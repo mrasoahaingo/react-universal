@@ -36,9 +36,11 @@
     "path": "^0.12.7",
     "reasync": "1.0.0-rc.4",
     "rimraf": "^2.4.3",
+    "serviceworker-loader": "^0.1.0",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
-    "webpack-hot-middleware": "^2.9.1"
+    "webpack-hot-middleware": "^2.9.1",
+    "worker-loader": "^0.7.0"
   },
   "dependencies": {
     "axios": "^0.9.1",

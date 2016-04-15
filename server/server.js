@@ -13,7 +13,7 @@ import { match, RouterContext, createMemoryHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import createClient from 'common/createClient'
-import createStore, { initialState } from 'common/createStore'
+import { initialState, remoteStore } from 'common/createStore'
 import { createServerResolver } from 'common/reasync'
 import createRoutes from 'routes'
 
@@ -32,8 +32,7 @@ app.use('/public', express.static('public'))
 app.use((req, res) => {
 
   const memoryHistory = createMemoryHistory(req.originalUrl)
-  const client = createClient(req.cookie)
-  const store = createStore(memoryHistory, initialState, client)
+  const store = remoteStore(initialState)
   const history = syncHistoryWithStore(memoryHistory, store)
   const location = history.createLocation(req.url)
   const routes = createRoutes(history)

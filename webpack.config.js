@@ -6,10 +6,8 @@ module.exports = {
   entry: {
     bundle: [
       'webpack-hot-middleware/client',
-      './client/swRegister.js',
       './client/index'
-    ],
-    sw: './client/sw.js'
+    ]
   },
   output: {
     path: __dirname,

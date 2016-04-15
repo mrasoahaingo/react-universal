@@ -11,7 +11,7 @@ import Page from './Page'
 )
 @connect(
   state => ({
-    movies: state.movies
+    movies: state.app.movies
   })
 )
 class List extends Component {
