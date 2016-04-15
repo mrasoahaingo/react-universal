@@ -8,7 +8,7 @@ import {
 
 export const createServerResolver = () => {
   const resolver = createResolver()
-  
+  console.log('[SERVER] createServerResolver')
   resolver
       .addHooks(PRE_RESOLVE_HOOK)
       .addHooks(createTransitionHook())
@@ -18,7 +18,7 @@ export const createServerResolver = () => {
 
 export const createClientResolver = (history, location, initLocation, customAttributes) => {
   const resolver = _createClientResolver(history, location, initLocation, customAttributes);
-  
+  console.log('[BROWSER] createClientResolver')
   resolver
       .addHooks(PRE_RESOLVE_HOOK)
       .addHooks(createTransitionHook({ executeIfPreviousFailed: true }), DEFER_RESOLVE_HOOK);

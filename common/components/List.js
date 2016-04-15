@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { preResolve } from 'reasync'
 import Velocity from 'velocity-animate'
-import { getLatest } from 'reducers/movies'
+import { getLatest } from 'remote/reducers/movies'
 import Page from './Page'
 
 @preResolve(
@@ -11,18 +11,22 @@ import Page from './Page'
 )
 @connect(
   state => ({
-    movies: state.movies
+    movies: state.app.movies
   })
 )
 class List extends Component {
 
-  constructor(props) {
-    super(props)
-
-    this.sequence = []
-  }
+  sequence = []
 
   componentDidMount() {
+    this.enterTransition()
+  }
+
+  componentDidUpdate() {
+    this.enterTransition()
+  }
+  
+  enterTransition() {
     Velocity.RunSequence(this.sequence)
   }
 

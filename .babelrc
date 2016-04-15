@@ -8,11 +8,13 @@
     ["babel-plugin-module-alias", [
       { "src": "./client", "expose": "client" },
       { "src": "./server", "expose": "server" },
-      { "src": "./common", "expose": "common" },
-      { "src": "./src/routes", "expose": "routes" },
-      { "src": "./src/reducers", "expose": "reducers" },
-      { "src": "./src/components", "expose": "components" },
-      { "src": "./src/layout", "expose": "layout" }
+      { "src": "./remote", "expose": "remote" },
+      { "src": "./utils", "expose": "utils" },
+      { "src": "./common/constants", "expose": "constants" },
+      { "src": "./common/store", "expose": "store" },
+      { "src": "./common/routes", "expose": "routes" },
+      { "src": "./common/components", "expose": "components" },
+      { "src": "./common/layout", "expose": "layout" }
     ]]
   ],
   "env": {

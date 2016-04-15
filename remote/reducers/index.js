@@ -5,8 +5,10 @@ import detail from './detail'
 import { routerReducer as routing } from 'react-router-redux'
 
 export default combineReducers({
-  detail,
-  count,
-  movies,
+  app: combineReducers({
+    detail,
+    count,
+    movies
+  }),
   routing
 })

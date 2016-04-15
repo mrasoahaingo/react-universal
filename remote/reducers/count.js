@@ -1,19 +1,18 @@
-export const INCREMENT = 'INCREMENT'
-export const DECREMENT = 'DECREMENT'
+import { INCREMENT, DECREMENT } from 'constants/actionTypes'
 
-export function increment() {
+export const increment = () => {
   return {
     type: INCREMENT
   }
 }
 
-export function decrement() {
+export const decrement = () => {
   return {
     type: DECREMENT
   }
 }
 
-export default function count(state = 0, { type }) {
+export default (state = 0, { type }) => {
   switch (type) {
     case INCREMENT:
       return state + 1

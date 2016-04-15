@@ -1,4 +1,5 @@
-import 'common/jsdom'
+import 'utils/jsdom'
+import 'isomorphic-fetch'
 
 import express from 'express'
 import webpack from 'webpack'
@@ -12,9 +13,8 @@ import { Provider } from 'react-redux'
 import { match, RouterContext, createMemoryHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
-import createClient from 'common/createClient'
-import createStore, { initialState } from 'common/createStore'
-import { createServerResolver } from 'common/reasync'
+import createRemoteStore from 'remote/store/remoteStore'
+import { createServerResolver } from 'utils/reasync'
 import createRoutes from 'routes'
 
 const app = express()
@@ -32,8 +32,7 @@ app.use('/public', express.static('public'))
 app.use((req, res) => {
 
   const memoryHistory = createMemoryHistory(req.originalUrl)
-  const client = createClient(req.cookie)
-  const store = createStore(memoryHistory, initialState, client)
+  const store = createRemoteStore()
   const history = syncHistoryWithStore(memoryHistory, store)
   const location = history.createLocation(req.url)
   const routes = createRoutes(history)

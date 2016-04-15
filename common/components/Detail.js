@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { preResolve } from 'reasync'
 import Velocity from 'velocity-animate'
-import { getDetail } from 'reducers/detail'
+import { getDetail } from 'remote/reducers/detail'
 import Page from './Page'
 
 @preResolve(
@@ -10,20 +10,25 @@ import Page from './Page'
 )
 @connect(
   state => ({
-    detail: state.detail
+    detail: state.app.detail
   })
 )
 class List extends Component {
 
   componentDidMount() {
+    this.enterTransition()
+  }
 
-    const sequence = [
+  componentDidUpdate() {
+    this.enterTransition()
+  }
+
+  enterTransition() {
+    Velocity.RunSequence([
       { e: this.image, p: { translateX: 800, scale: 2 }, o: { duration: 1000 } },
       { e: this.title, p: { translateY: 200 }, o: { duration: 100 } },
       { e: this.article, p: { translateY: 100 }, o: { duration: 100 } }
-    ]
-
-    Velocity.RunSequence(sequence)
+    ])
   }
 
   render() {

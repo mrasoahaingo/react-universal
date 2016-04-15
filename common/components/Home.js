@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { increment, decrement } from 'reducers/count'
+import { increment, decrement } from 'remote/reducers/count'
 import Page from './Page'
 
 @connect(
   state => ({
-    count: state.count
+    count: state.app.count
   }),
   dispatch => ({
     onIncrement: () => {
