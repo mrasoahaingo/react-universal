@@ -1,5 +1,5 @@
-import 'utils/jsdom'
 import 'isomorphic-fetch'
+import 'utils/jsdom'
 
 import express from 'express'
 import webpack from 'webpack'

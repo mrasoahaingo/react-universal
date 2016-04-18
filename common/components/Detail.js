@@ -4,6 +4,7 @@ import { preResolve } from 'reasync'
 import Velocity from 'velocity-animate'
 import { getDetail } from 'remote/reducers/detail'
 import Page from './Page'
+import Loading from './Loading'
 
 @preResolve(
   ({ params: { movieId }, dispatch }) => dispatch(getDetail(movieId))
@@ -34,6 +35,10 @@ class List extends Component {
   render() {
     const { detail: { title, backdrop_path } } = this.props
 
+    if(!title) {
+      return <Loading/>
+    }
+    
     return (
       <Page>
         <article ref={ref => this.article = ref }>

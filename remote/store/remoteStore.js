@@ -22,8 +22,6 @@ const requestMiddleware = () => ({ getState, dispatch }) => next => action => {
       })
 }
 
-
-
 export default (data = initialState) => {
 
   const store = _createStore(

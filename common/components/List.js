@@ -5,6 +5,7 @@ import { preResolve } from 'reasync'
 import Velocity from 'velocity-animate'
 import { getLatest } from 'remote/reducers/movies'
 import Page from './Page'
+import Loading from './Loading'
 
 @preResolve(
   ({ dispatch }) => dispatch(getLatest())
@@ -40,6 +41,10 @@ class List extends Component {
 
   render() {
     const { movies } = this.props
+
+    if(movies.length === 0) {
+      return <Loading/>
+    }
 
     return (
       <Page>
