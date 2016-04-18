@@ -25,17 +25,21 @@ class List extends Component {
   }
 
   enterTransition() {
-    Velocity.RunSequence([
+    this.isLoaded() && Velocity.RunSequence([
       { e: this.image, p: { translateX: 800, scale: 2 }, o: { duration: 1000 } },
       { e: this.title, p: { translateY: 200 }, o: { duration: 100 } },
       { e: this.article, p: { translateY: 100 }, o: { duration: 100 } }
     ])
   }
 
+  isLoaded() {
+    return !!this.props.detail.title
+  }
+
   render() {
     const { detail: { title, backdrop_path } } = this.props
 
-    if(!title) {
+    if(!this.isLoaded()) {
       return <Loading/>
     }
     

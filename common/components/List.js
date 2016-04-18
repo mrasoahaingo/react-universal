@@ -28,7 +28,7 @@ class List extends Component {
   }
   
   enterTransition() {
-    Velocity.RunSequence(this.sequence)
+    this.isLoaded() && Velocity.RunSequence(this.sequence)
   }
 
   getSequence(ref) {
@@ -39,10 +39,14 @@ class List extends Component {
     }
   }
 
+  isLoaded() {
+    return this.props.movies.length > 0
+  }
+  
   render() {
     const { movies } = this.props
 
-    if(movies.length === 0) {
+    if(!this.isLoaded()) {
       return <Loading/>
     }
 
