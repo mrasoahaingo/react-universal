@@ -1,6 +1,6 @@
 import createRemoteStore from 'remote/store/remoteStore'
 
-const store = createRemoteStore({})
+const store = createRemoteStore()
 
 self.addEventListener('message', msg => {
   console.log('[REMOTE] receive message', msg.data)

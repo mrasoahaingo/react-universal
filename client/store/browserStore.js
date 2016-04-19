@@ -13,7 +13,7 @@ const workerMiddleware = worker => ({ getState, dispatch }) => next => action =>
   return worker.postMessage(action)
 }
 
-export default (history, data = initialState, worker) => {
+export default (data = initialState, history, worker) => {
   const store = _createStore(
       appReducer,
       data,

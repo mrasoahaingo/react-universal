@@ -7,7 +7,9 @@ import { Provider } from 'react-redux'
 import { Router, browserHistory, match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
+//import createBrowserStore from 'remote/store/remoteStore'
 import createBrowserStore from './store/browserStore'
+
 import createRoutes from 'routes'
 import { createClientResolver } from 'utils/reasync'
 
@@ -19,7 +21,7 @@ const webWorker = new WebWorker()
 
 const state = window.__INITIAL_STATE__
 
-const store = createBrowserStore(browserHistory, state, webWorker)
+const store = createBrowserStore(state, browserHistory , webWorker)
 const history = syncHistoryWithStore(browserHistory, store)
 const { pathname, search, hash } = window.location
 const location = `${pathname}${search}${hash}`

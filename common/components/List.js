@@ -20,15 +20,15 @@ class List extends Component {
   sequence = []
 
   componentDidMount() {
-    this.enterTransition()
+    this.isLoaded() && this.enterTransition()
   }
 
   componentDidUpdate() {
-    this.enterTransition()
+    this.isLoaded() && this.enterTransition()
   }
   
   enterTransition() {
-    this.isLoaded() && Velocity.RunSequence(this.sequence)
+    Velocity.RunSequence(this.sequence)
   }
 
   getSequence(ref) {
@@ -53,8 +53,8 @@ class List extends Component {
     return (
       <Page>
         <h1>List</h1>
-        {movies.map(movie => (
-          <div key={movie.id} style={{opacity: 0}} ref={ref => this.sequence.push(this.getSequence(ref))}>
+        {movies.map((movie, i) => (
+          <div key={movie.id} style={{opacity: i < 5 ? 0 : 1}} ref={ref => i < 5 && this.sequence.push(this.getSequence(ref))}>
             <Link to={`/movie/${movie.id}`}>
               <img srcSet={`
                 https://image.tmdb.org/t/p/w185${movie.backdrop_path} 1x,
